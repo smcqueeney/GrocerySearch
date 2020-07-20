@@ -28,7 +28,7 @@ public class Database extends SQLiteAssetHelper{
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"Product", "Isle", "Department"};
+        String[] sqlSelect = {"ID"," Product", "Isle", "Department"};
         String tableName = "GroceryDB";
 
         qb.setTables(tableName);
@@ -38,11 +38,33 @@ public class Database extends SQLiteAssetHelper{
         if (cursor.moveToFirst()){
             do{
                 product product = new product();
+                product.setId(cursor.getInt(cursor.getColumnIndex("Id")));
                 product.setIsle(cursor.getInt(cursor.getColumnIndex("Isle")));
                 product.setName(cursor.getString(cursor.getColumnIndex("Product")));
                 product.setDepartment(cursor.getString(cursor.getColumnIndex("Department")));
 
                 result.add(product);
+            }while (cursor.moveToNext());
+        }
+        return result;
+    }
+
+    public List<String> getProductName(){
+
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"Product"};
+        String tableName = "GroceryDB";
+
+        qb.setTables(tableName);
+        Cursor cursor = qb.query(db, sqlSelect, null, null, null, null, null);
+        List<product> result = new ArrayList<>();
+
+        if (cursor.moveToFirst()){
+            do{
+
+                result.add(cursor.getString(cursor.getColumnIndex("Product")));
             }while (cursor.moveToNext());
         }
         return result;
@@ -55,7 +77,7 @@ public class Database extends SQLiteAssetHelper{
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"Product", "Isle", "Department"};
+        String[] sqlSelect = {"ID", "Product", "Isle", "Department"};
         String tableName = "GroceryDB";
 
         qb.setTables(tableName);
