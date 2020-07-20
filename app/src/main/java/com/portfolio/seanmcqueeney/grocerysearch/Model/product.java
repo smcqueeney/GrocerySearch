@@ -1,10 +1,12 @@
 package com.portfolio.seanmcqueeney.grocerysearch.Model;
 
 public class product {
+    public int id;
     public int isle;
     public String name, department;
 
     public product(int isle, String name, String department) {
+        this.id = id;
         this.isle = isle;
         this.name = name;
         this.department = department;
@@ -12,6 +14,14 @@ public class product {
 
     public product() {
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getIsle() {
